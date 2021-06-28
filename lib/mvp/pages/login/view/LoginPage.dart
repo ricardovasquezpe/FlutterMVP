@@ -30,13 +30,12 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset : false,
+        //resizeToAvoidBottomInset : false,
         extendBodyBehindAppBar: true,
         body:
         Column(
           children: <Widget>[
             Expanded(
-              flex: 7,
               child: Container(
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -46,8 +45,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
                 ),
                 child: Container(
                   margin: EdgeInsets.fromLTRB(50, 50, 50, 0),
-                  child: Center(
-                      child: Column(
+                  child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
@@ -78,31 +76,6 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
                           )
                         ],
                       )
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Text("uno"),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text("dos"),
-                        Text("tres")
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text("cuadro"),
-                        Text("cinco")
-                      ],
-                    )
-                  ],
                 ),
               ),
             )
