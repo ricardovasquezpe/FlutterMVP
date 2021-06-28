@@ -9,16 +9,18 @@ class CustomInput extends StatelessWidget {
   String hintText;
   bool enabled;
   IconData icon;
+  final controller;
 
   CustomInput({
         @required this.hintText,
-        this.maxLength = 10,
+        this.maxLength = 100,
         this.obscureText = false,
         this.autocorrect = false,
         this.keyboardType = TextInputType.text,
         this.textAlign = TextAlign.start,
         this.enabled = true,
-        this.icon = null
+        this.icon = null,
+        this.controller = null
       });
 
   @override
@@ -29,6 +31,7 @@ class CustomInput extends StatelessWidget {
         shadowColor: Colors.grey,
         borderRadius: BorderRadius.circular(25.0),
         child: TextField(
+          controller: this.controller,
           enabled: enabled,
           textAlign: this.textAlign,
           obscureText: this.obscureText,

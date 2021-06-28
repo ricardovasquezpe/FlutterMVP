@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/mvp/pages/login/presenter/LoginPresenter.dart';
@@ -15,6 +17,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> implements LoginPageView{
   LoginPresenter _loginPresenter;
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
 @override
   void initState() {
@@ -58,9 +63,9 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
                           Container(
                             child: Column(
                               children: <Widget>[
-                                CustomInput(hintText: "Username", icon: Icons.person,),
+                                CustomInput(hintText: "Username", icon: Icons.person, controller: this.usernameController,),
                                 SizedBox(height: 20,),
-                                CustomInput(hintText: "Password",obscureText: true, icon: Icons.lock)
+                                CustomInput(hintText: "Password",obscureText: true, icon: Icons.lock, controller: this.passwordController)
                               ],
                             ),
                           ),
@@ -107,14 +112,16 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
   }
 
   void login(){
-    _loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
+    //_loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
+    _loginPresenter.tryLogin(usernameController.text, passwordController.text);
   }
 
   @override
   onSuccessLogin(bool ingreso, [String token]) {
-  if(ingreso){
-    Navigator.popAndPushNamed(context, '/home', arguments: {"user" : token});
-  }
-    //Toast.show("RESULT: " + ingreso.toString(), context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+    if(ingreso){
+      Navigator.popAndPushNamed(context, '/home', arguments: {"user" : token});
+    } else {
+      Toast.show("Incorrect credentials", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+    }
   }
 }
