@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/mvp/pages/login/presenter/LoginPresenter.dart';
 import 'package:flutterapp/mvp/pages/login/view/LoginPageView.dart';
+import 'package:flutterapp/mvp/utils/Utils.dart';
 import 'package:flutterapp/widgets/custom_button.dart';
 import 'package:flutterapp/widgets/custom_input.dart';
 import 'package:toast/toast.dart';
@@ -85,12 +86,15 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
   }
 
   void login(){
+    Utils.showLoading(context);
+
     //_loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
     _loginPresenter.tryLogin(usernameController.text, passwordController.text);
   }
 
   @override
   onSuccessLogin(bool ingreso, [String token]) {
+    Navigator.of(context).pop();
     if(ingreso){
       Navigator.popAndPushNamed(context, '/home', arguments: {"user" : token});
     } else {
