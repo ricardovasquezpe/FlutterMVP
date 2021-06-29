@@ -9,20 +9,17 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ButtonTheme(
-        child: RaisedButton(
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.0),
-          ),
-          padding: const EdgeInsets.all(8.0),
-          textColor: Colors.white,
-          color: Color(0xff6A74CE),
+    return ConstrainedBox(
+      child: ElevatedButton(
           onPressed: this.onCustomButtonPressed,
           child: new Text("Login", style: TextStyle(color: Colors.white)),
+        style: ButtonStyle(
+            shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
+              return RoundedRectangleBorder(borderRadius: BorderRadius.circular(25));
+            })
+        ),
       ),
-      height: 45.0,
-      minWidth: double.infinity
+      constraints: BoxConstraints.tightFor(width: double.infinity, height: 45),
     );
   }
 }

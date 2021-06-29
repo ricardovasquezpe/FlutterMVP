@@ -8,8 +8,8 @@ class CustomLoading extends Dialog {
       type: MaterialType.transparency,
       child: new Center(
         child: new SizedBox(
-          width: 120.0,
-          height: 120.0,
+          width: 70.0,
+          height: 70.0,
           child: new Container(
             decoration: ShapeDecoration(
               color: Color(0xffffffff),
@@ -25,12 +25,12 @@ class CustomLoading extends Dialog {
               children: <Widget>[
                 new CircularProgressIndicator(
                     valueColor: new AlwaysStoppedAnimation(Color(0xff1829ec))),
-                new Padding(
+                /*new Padding(
                   padding: const EdgeInsets.only(
                     top: 20.0,
                   ),
                   child: new Text("Loading"),
-                ),
+                ),*/
               ],
             ),
           ),

@@ -21,8 +21,12 @@ class CustomTheme {
         fontFamily: 'Nunito',
         textTheme: ThemeData.dark().textTheme,
         buttonTheme: ButtonThemeData(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-          buttonColor: CustomColors.lightPurple,
+          buttonColor: CustomColors.red,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(CustomColors.cyan)
+            ),
         )
     );
   }
