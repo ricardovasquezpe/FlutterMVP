@@ -3,6 +3,7 @@ import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:flutterapp/mvp/pages/home/view/HomePage.dart';
 import 'package:flutterapp/mvp/pages/login/view/LoginPage.dart';
 import 'package:flutterapp/mvp/utils/Dependencies.dart';
+import 'package:flutterapp/theme/custom_theme.dart';
 
 void main() {
   Stetho.initialize();
@@ -16,10 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      //home: LoginPage(),
+      theme: CustomTheme.darkTheme,
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
