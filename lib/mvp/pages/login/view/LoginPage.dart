@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final _bloc = new CounterBloc();
+  final _bloc = CounterBloc();
 
 @override
   void initState() {
@@ -102,7 +102,9 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
     /*Utils.showLoading(context);
     //_loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
     _loginPresenter.tryLogin(usernameController.text, passwordController.text);*/
-    _bloc.counterEventSink.add(IncrementEvent());
+    _bloc.stateController.add(IncrementEvent());
+
+
   }
 
   @override

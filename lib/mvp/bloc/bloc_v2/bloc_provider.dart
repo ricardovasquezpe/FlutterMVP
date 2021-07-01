@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutterapp/mvp/bloc/bloc.dart';
+import 'package:flutterapp/mvp/bloc/bloc_v2/bloc.dart';
 
 class BlocProvider<T extends Bloc> extends StatefulWidget {
   const BlocProvider({

@@ -1,19 +1,21 @@
 import 'dart:async';
-
+import 'package:flutterapp/mvp/bloc/bloc_v2/bloc.dart';
 import 'package:flutterapp/mvp/bloc/counter_event.dart';
 
-class CounterBloc{
+class CounterBloc extends Bloc<CounterEvent>{
   int _counter = 0;
 
   final _counterStateController = StreamController<int>();
   StreamSink<int> get _inCounterSink => _counterStateController.sink;
   Stream<int> get counterStream => _counterStateController.stream;
 
-  final _counterEventController = StreamController<CounterEvent>();
-  Sink<CounterEvent> get counterEventSink => _counterEventController.sink;
+  //final _counterEventController = StreamController<CounterEvent>();
+  //Sink<CounterEvent> get counterEventSink => _counterEventController.sink;
 
   CounterBloc() {
-    _counterEventController.stream.listen(_mapEventToState);
+    //_counterEventController.stream.listen(_mapEventToState);
+    this.stateController.stream.listen(_mapEventToState);
+
   }
 
   void _mapEventToState(CounterEvent event) {
@@ -28,7 +30,7 @@ class CounterBloc{
 
   void dispose() {
     _counterStateController.close();
-    _counterEventController.close();
+    //_counterEventController.close();
   }
 
 }
