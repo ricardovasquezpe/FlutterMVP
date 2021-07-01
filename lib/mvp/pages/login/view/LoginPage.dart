@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/mvp/bloc/counter_bloc.dart';
+import 'package:flutterapp/mvp/bloc/counter_event.dart';
 import 'package:flutterapp/mvp/pages/login/presenter/LoginPresenter.dart';
 import 'package:flutterapp/mvp/pages/login/view/LoginPageView.dart';
 import 'package:flutterapp/mvp/utils/Utils.dart';
@@ -21,6 +23,8 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final _bloc = new CounterBloc();
 
 @override
   void initState() {
@@ -74,6 +78,15 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
                           Text(
                             "Forgot your password?",
                             style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                          StreamBuilder(
+                            stream: _bloc.counterStream,
+                            initialData: 0,
+                            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                              return Text(
+                                (snapshot.data.toString())
+                              );
+                            },
                           )
                         ],
                       )
@@ -86,10 +99,10 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
   }
 
   void login(){
-    Utils.showLoading(context);
-
+    /*Utils.showLoading(context);
     //_loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
-    _loginPresenter.tryLogin(usernameController.text, passwordController.text);
+    _loginPresenter.tryLogin(usernameController.text, passwordController.text);*/
+    _bloc.counterEventSink.add(IncrementEvent());
   }
 
   @override
