@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
                         ),
                         SizedBox(height: 60,),
                         CustomButton(onCustomButtonPressed: (){
-                          _bloc.counterEventSink.add(IncrementEvent());
+                          this.login(_bloc);
                         },),
                         SizedBox(height: 20,),
                         Text(
@@ -98,11 +98,11 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
     );
   }
 
-  void login(){
+  void login(Bloc _bloc){
     /*Utils.showLoading(context);
     //_loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
     _loginPresenter.tryLogin(usernameController.text, passwordController.text);*/
-    //_bloc.counterEventSink.add(IncrementEvent());
+    _bloc.counterEventSink.add(IncrementEvent());
   }
 
   @override
