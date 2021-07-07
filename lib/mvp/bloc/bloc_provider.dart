@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutterapp/mvp/bloc/bloc_v2/bloc.dart';
+import 'package:flutterapp/mvp/bloc/bloc_base.dart';
 
-class BlocProvider<T extends Bloc> extends StatefulWidget {
+class BlocProvider<T extends BlocBase> extends StatefulWidget {
   const BlocProvider({
     Key key,
     @required this.child,
@@ -14,13 +14,13 @@ class BlocProvider<T extends Bloc> extends StatefulWidget {
   @override
   _BlocProviderState<T> createState() => _BlocProviderState<T>();
 
-  static T of<T extends Bloc>(BuildContext context){
+  static T of<T extends BlocBase>(BuildContext context){
     final BlocProvider<T> provider = context.findAncestorWidgetOfExactType();
     return provider.bloc;
   }
 }
 
-class _BlocProviderState<T> extends State<BlocProvider<Bloc>>{
+class _BlocProviderState<T> extends State<BlocProvider<BlocBase>>{
   @override
   void dispose(){
     widget.bloc.dispose();

@@ -71,6 +71,7 @@ class CustomInput extends StatelessWidget {
           )*/
           ),
           style: TextStyle(
+            color: Colors.black,
             fontSize: 13.0,
             height: 0.8,
           ),

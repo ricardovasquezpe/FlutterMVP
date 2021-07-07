@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/mvp/bloc/counter_bloc.dart';
-import 'package:flutterapp/mvp/bloc/counter_event.dart';
+import 'package:flutterapp/mvp/bloc/bloc.dart';
+import 'package:flutterapp/mvp/bloc/bloc_provider.dart';
+import 'package:flutterapp/mvp/bloc/event.dart';
 import 'package:flutterapp/mvp/pages/login/presenter/LoginPresenter.dart';
 import 'package:flutterapp/mvp/pages/login/view/LoginPageView.dart';
-import 'package:flutterapp/mvp/utils/Utils.dart';
 import 'package:flutterapp/widgets/custom_button.dart';
 import 'package:flutterapp/widgets/custom_input.dart';
 import 'package:toast/toast.dart';
@@ -24,18 +22,18 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final _bloc = CounterBloc();
-
-@override
+  @override
   void initState() {
-  _loginPresenter = new LoginPresenter(this);
+    _loginPresenter = new LoginPresenter(this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Bloc _bloc = BlocProvider.of<Bloc>(context);
+
     return Scaffold(
-        //resizeToAvoidBottomInset : false,
+      //resizeToAvoidBottomInset : false,
         extendBodyBehindAppBar: true,
         body:
         Column(
@@ -49,47 +47,49 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
                         colors: [Color(0xffdec3fc), Color(0xff90c5fc)])
                 ),
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(50, 50, 50, 0),
-                  child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 33,
-                                fontWeight: FontWeight.bold
-                            ),
+                    margin: EdgeInsets.fromLTRB(50, 50, 50, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Login",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 33,
+                              fontWeight: FontWeight.bold
                           ),
-                          SizedBox(height: 45,),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                CustomInput(hintText: "Username", icon: Icons.person, controller: this.usernameController,),
-                                SizedBox(height: 20,),
-                                CustomInput(hintText: "Password",obscureText: true, icon: Icons.lock, controller: this.passwordController)
-                              ],
-                            ),
+                        ),
+                        SizedBox(height: 45,),
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              CustomInput(hintText: "Username", icon: Icons.person, controller: this.usernameController,),
+                              SizedBox(height: 20,),
+                              CustomInput(hintText: "Password",obscureText: true, icon: Icons.lock, controller: this.passwordController)
+                            ],
                           ),
-                          SizedBox(height: 60,),
-                          CustomButton(onCustomButtonPressed: this.login,),
-                          SizedBox(height: 20,),
-                          Text(
-                            "Forgot your password?",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          ),
-                          StreamBuilder(
-                            stream: _bloc.counterStream,
-                            initialData: 0,
-                            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                              return Text(
+                        ),
+                        SizedBox(height: 60,),
+                        CustomButton(onCustomButtonPressed: (){
+                          _bloc.counterEventSink.add(IncrementEvent());
+                        },),
+                        SizedBox(height: 20,),
+                        Text(
+                          "Forgot your password?",
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                        StreamBuilder<int>(
+                          stream: _bloc.counterStream,
+                          initialData: 0,
+                          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                            return Text(
                                 (snapshot.data.toString())
-                              );
-                            },
-                          )
-                        ],
-                      )
+                            );
+                          },
+                        )
+                      ],
+                    )
                 ),
               ),
             )
@@ -102,9 +102,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageView{
     /*Utils.showLoading(context);
     //_loginPresenter.tryLogin("eve.holt@reqres.in", "fef");
     _loginPresenter.tryLogin(usernameController.text, passwordController.text);*/
-    _bloc.stateController.add(IncrementEvent());
-
-
+    //_bloc.counterEventSink.add(IncrementEvent());
   }
 
   @override
