@@ -20,6 +20,7 @@ dependencies:
       url: git://github.com/jasonlewicki/flutter_stetho.git
       ref: master
   get_it: ^4.0.2
+  webview_flutter: ^2.0.9
 
 dev_dependencies:
   flutter_test:
